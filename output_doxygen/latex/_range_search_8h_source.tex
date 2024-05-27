@@ -1,0 +1,32 @@
+\doxysection{Range\+Search.\+h}
+\hypertarget{_range_search_8h_source}{}\label{_range_search_8h_source}\index{include/RangeSearch.h@{include/RangeSearch.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RANGESEARCH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RANGESEARCH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <ANN/ANN.h>}\ \ \textcolor{comment}{//\ Include\ ANN\ library\ headers}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Point.h"{}}\ \ \ \ \ \textcolor{comment}{//\ Include\ the\ Point\ class\ header}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_range_search}{RangeSearch}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00010\ \ \ \ \ ANNpointArray\ dataPts;\ \ \ \textcolor{comment}{//\ Data\ points\ array}}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__tree}{ANNkd\_tree}}*\ kdTree;\ \ \ \ \ \ \textcolor{comment}{//\ Pointer\ to\ kd-\/tree}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ pointCount;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ data\ points}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ calboundingbox(\textcolor{keyword}{const}\ std::vector<Point>\&\ polygon,\ ANNpoint\&\ minPt,\ ANNpoint\&\ maxPt);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_range_search_a94ed741f518797ac3542f50e65f5098e}{RangeSearch}}(\textcolor{keyword}{const}\ std::vector<Point>\&\ points);}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_range_search_ae8825bfbf265cc9735479543af501036}{\string~RangeSearch}}();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_range_search_aa10aaeba89676ff65acd25ab3f25defb}{pointinsidebox}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_point}{Point}}\&\ pt,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_point}{Point}}\&\ bbMin,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_point}{Point}}\&\ bbMax);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_range_search_a19f2ee1cb53177852d27faf9acd98b2a}{pointinsidepoly}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_point}{Point}}\&\ pt,\ \textcolor{keyword}{const}\ std::vector<Point>\&\ polygon);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_range_search_a082f83fc001a90fe9c02e735d691563a}{queryPolyCount}}(\textcolor{keyword}{const}\ std::vector<Point>\&\ polygon);}
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{class_range_search_ada65b6fa3f5bd73fdc3a8b9416b67466}{queryPoly}}(\textcolor{keyword}{const}\ std::vector<Point>\&\ polygon);}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RANGESEARCH\_H}}
+
+\end{DoxyCode}

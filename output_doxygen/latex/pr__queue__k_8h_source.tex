@@ -1,0 +1,124 @@
+\doxysection{pr\+\_\+queue\+\_\+k.\+h}
+\hypertarget{pr__queue__k_8h_source}{}\label{pr__queue__k_8h_source}\index{ann\_src/pr\_queue\_k.h@{ann\_src/pr\_queue\_k.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ \ \ \ \ \ \ \ \ \ \ \ pr\_queue\_k.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Programmer:\ \ \ \ \ \ Sunil\ Arya\ and\ David\ Mount}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Description:\ \ \ \ \ Include\ file\ for\ priority\ queue\ with\ k\ items.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Last\ modified:\ \ \ 01/04/05\ (Version\ 1.0)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Copyright\ (c)\ 1997-\/2005\ University\ of\ Maryland\ and\ Sunil\ Arya\ and}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ David\ Mount.\ \ All\ Rights\ Reserved.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ This\ software\ and\ related\ documentation\ is\ part\ of\ the\ Approximate}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Nearest\ Neighbor\ Library\ (ANN).\ \ This\ software\ is\ provided\ under}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ the\ provisions\ of\ the\ Lesser\ GNU\ Public\ License\ (LGPL).\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ file\ ../ReadMe.txt\ for\ further\ information.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ The\ University\ of\ Maryland\ (U.M.)\ and\ the\ authors\ make\ no}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ representations\ about\ the\ suitability\ or\ fitness\ of\ this\ software\ for}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ any\ purpose.\ \ It\ is\ provided\ "{}as\ is"{}\ without\ express\ or\ implied}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ warranty.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ History:}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ Revision\ 0.1\ \ 03/04/98}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ \ \ Initial\ release}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ PR\_QUEUE\_K\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ PR\_QUEUE\_K\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <ANN/ANNx.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ all\ ANN\ includes}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <ANN/ANNperf.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ performance\ evaluation}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \ Basic\ types}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ ANNdist\ \ \ \ \ \ \ \ \ PQKkey;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key\ field\ is\ distance}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ PQKinfo;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ info\ field\ is\ int}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ Constants}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ \ The\ NULL\ key\ value\ is\ used\ to\ initialize\ the\ priority\ queue,\ and}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ \ \ \ so\ it\ should\ be\ larger\ than\ any\ valid\ distance,\ so\ that\ it\ will}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ \ be\ replaced\ as\ legal\ distance\ values\ are\ inserted.\ \ The\ NULL}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ \ \ \ \ info\ value\ must\ be\ a\ nonvalid\ array\ index,\ we\ use\ ANN\_NULL\_IDX,}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ which\ is\ guaranteed\ to\ be\ negative.}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{const}\ PQKkey\ \ \ \ PQ\_NULL\_KEY\ \ =\ \ ANN\_DIST\_INF;\ \ \ \textcolor{comment}{//\ nonexistent\ key\ value}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{const}\ PQKinfo\ \ \ PQ\_NULL\_INFO\ =\ \ ANN\_NULL\_IDX;\ \ \ \textcolor{comment}{//\ nonexistent\ info\ value}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ ANNmin\_k}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ An\ ANNmin\_k\ structure\ is\ one\ which\ maintains\ the\ smallest}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ \ k\ values\ (of\ type\ PQKkey)\ and\ associated\ information\ (of\ type}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ \ \ \ \ PQKinfo).\ \ The\ special\ info\ and\ key\ values\ PQ\_NULL\_INFO\ and}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ \ PQ\_NULL\_KEY\ means\ that\ thise\ entry\ is\ empty.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ \ \ \ \ \ It\ is\ currently\ implemented\ using\ an\ array\ with\ k\ items.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ \ \ \ \ Items\ are\ stored\ in\ increasing\ sorted\ order,\ and\ insertions}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ \ \ \ \ \ are\ made\ through\ standard\ insertion\ sort.\ \ (This\ is\ quite}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \ \ \ \ \ inefficient,\ but\ current\ applications\ call\ for\ small\ values}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ \ \ \ \ of\ k\ and\ relatively\ few\ insertions.)}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ \ }}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ \ \ \ Note\ that\ the\ list\ contains\ k+1\ entries,\ but\ the\ last\ entry}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ \ is\ used\ as\ a\ simple\ placeholder\ and\ is\ otherwise\ ignored.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nmin__k}{ANNmin\_k}}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{struct\ }mk\_node\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ node\ in\ min\_k\ structure}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ PQKkey\ \ \ \ \ \ \ \ \ \ key;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key\ value}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ PQKinfo\ \ \ \ \ \ \ \ \ info;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ info\ field\ (user\ defined)}}
+\DoxyCodeLine{00070\ \ \ \ \ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ k;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ max\ number\ of\ keys\ to\ store}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ n;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ keys\ currently\ active}}
+\DoxyCodeLine{00074\ \ \ \ \ mk\_node\ \ \ \ \ *mk;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ list\ itself}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_a_n_nmin__k}{ANNmin\_k}}(\textcolor{keywordtype}{int}\ max)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constructor\ (given\ max\ size)}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ n\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ initially\ no\ items}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ k\ =\ max;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ maximum\ number\ of\ items}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ mk\ =\ \textcolor{keyword}{new}\ mk\_node[max+1];\ \ \ \ \textcolor{comment}{//\ sorted\ array\ of\ keys}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{class_a_n_nmin__k}{\string~ANNmin\_k}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ destructor}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \{\ \textcolor{keyword}{delete}\ []\ mk;\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ PQKkey\ ANNmin\_key()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ minimum\ key}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ (n\ >\ 0\ ?\ mk[0].key\ :\ PQ\_NULL\_KEY);\ \}}
+\DoxyCodeLine{00089\ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ PQKkey\ max\_key()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ maximum\ key}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ (n\ ==\ k\ ?\ mk[k-\/1].key\ :\ PQ\_NULL\_KEY);\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ PQKkey\ ith\_smallest\_key(\textcolor{keywordtype}{int}\ i)\ \ \ \ \ \ \textcolor{comment}{//\ ith\ smallest\ key\ (i\ in\ [0..n-\/1])}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ (i\ <\ n\ ?\ mk[i].key\ :\ PQ\_NULL\_KEY);\ \}}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ PQKinfo\ ith\_smallest\_info(\textcolor{keywordtype}{int}\ i)\ \ \ \ \textcolor{comment}{//\ info\ for\ ith\ smallest\ (i\ in\ [0..n-\/1])}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ (i\ <\ n\ ?\ mk[i].info\ :\ PQ\_NULL\_INFO);\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ insert(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ item\ (inlined\ for\ speed)}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ PQKkey\ kv,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ key\ value}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ PQKinfo\ inf)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ item\ info}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{register}\ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ slide\ larger\ values\ up}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ n;\ i\ >\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mk[i-\/1].key\ >\ kv)}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mk[i]\ =\ mk[i-\/1];}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ mk[i].key\ =\ kv;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ store\ element\ here}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ mk[i].info\ =\ inf;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ <\ k)\ n++;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ number\ of\ items}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ ANN\_FLOP(k-\/i+1)\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ floating\ ops}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

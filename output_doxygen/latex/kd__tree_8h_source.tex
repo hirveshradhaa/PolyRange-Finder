@@ -1,0 +1,203 @@
+\doxysection{kd\+\_\+tree.\+h}
+\hypertarget{kd__tree_8h_source}{}\label{kd__tree_8h_source}\index{ann\_src/kd\_tree.h@{ann\_src/kd\_tree.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ \ \ \ \ \ \ \ \ \ \ \ kd\_tree.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Programmer:\ \ \ \ \ \ Sunil\ Arya\ and\ David\ Mount}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Description:\ \ \ \ \ Declarations\ for\ standard\ kd-\/tree\ routines}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Last\ modified:\ \ \ 05/03/05\ (Version\ 1.1)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Copyright\ (c)\ 1997-\/2005\ University\ of\ Maryland\ and\ Sunil\ Arya\ and}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ David\ Mount.\ \ All\ Rights\ Reserved.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ This\ software\ and\ related\ documentation\ is\ part\ of\ the\ Approximate}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Nearest\ Neighbor\ Library\ (ANN).\ \ This\ software\ is\ provided\ under}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ the\ provisions\ of\ the\ Lesser\ GNU\ Public\ License\ (LGPL).\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ file\ ../ReadMe.txt\ for\ further\ information.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ The\ University\ of\ Maryland\ (U.M.)\ and\ the\ authors\ make\ no}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ representations\ about\ the\ suitability\ or\ fitness\ of\ this\ software\ for}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ any\ purpose.\ \ It\ is\ provided\ "{}as\ is"{}\ without\ express\ or\ implied}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ warranty.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ History:}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ Revision\ 0.1\ \ 03/04/98}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ \ \ Initial\ release}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ Revision\ 1.1\ \ 05/03/05}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ \ Added\ fixed\ radius\ kNN\ search}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ ANN\_kd\_tree\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ANN\_kd\_tree\_H}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <ANN/ANNx.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ all\ ANN\ includes}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{using\ namespace\ }std;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ make\ std::\ available}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \ Generic\ kd-\/tree\ node}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ \ \ \ \ \ Nodes\ in\ kd-\/trees\ are\ of\ two\ types,\ splitting\ nodes\ which\ contain}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \ \ splitting\ information\ (a\ splitting\ hyperplane\ orthogonal\ to\ one}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ \ of\ the\ coordinate\ axes)\ and\ leaf\ nodes\ which\ contain\ point}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ \ \ \ information\ (an\ array\ of\ points\ stored\ in\ a\ bucket).\ \ This\ is}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ \ handled\ by\ making\ a\ generic\ class\ kd\_node,\ which\ is\ essentially\ an}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ \ \ \ \ empty\ shell,\ and\ then\ deriving\ the\ leaf\ and\ splitting\ nodes\ from}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ this.}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_node}}\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ generic\ kd-\/tree\ node\ (empty\ shell)}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_a_n_nkd__node}{\string~ANNkd\_node}}()\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ virtual\ distroyer}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_search(ANNdist)\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ tree\ search}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_pri\_search(ANNdist)\ =\ 0;\ \ \ \textcolor{comment}{//\ priority\ search}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_FR\_search(ANNdist)\ =\ 0;\ \ \ \ \textcolor{comment}{//\ fixed-\/radius\ search}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ getStats(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ tree\ statistics}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dim,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}\ \&st,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ statistics}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \&bnd\_box)\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ box}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ print\ node}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ print(\textcolor{keywordtype}{int}\ level,\ ostream\ \&out)\ =\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dump(ostream\ \&out)\ =\ 0;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ dump\ node}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nkd__tree}{ANNkd\_tree}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ allow\ kd-\/tree\ to\ access\ us}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \ kd-\/splitting\ function:}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ \ \ \ \ kd\_splitter\ is\ a\ pointer\ to\ a\ splitting\ routine\ for\ preprocessing.}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ \ \ \ Different\ splitting\ procedures\ result\ in\ different\ strategies}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ \ \ for\ building\ the\ tree.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ void\ (*ANNkd\_splitter)(\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ splitting\ routine\ for\ kd-\/trees}}
+\DoxyCodeLine{00073\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00074\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00079\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ Leaf\ kd-\/tree\ node}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ \ \ Leaf\ nodes\ of\ the\ kd-\/tree\ store\ the\ set\ of\ points\ associated}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ \ with\ this\ bucket,\ stored\ as\ an\ array\ of\ point\ indices.\ \ These}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ \ \ are\ indices\ in\ the\ array\ points,\ which\ resides\ with\ the}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ \ \ root\ of\ the\ kd-\/tree.\ \ We\ also\ store\ the\ number\ of\ points}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ \ \ \ \ that\ reside\ in\ this\ bucket.}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nkd__leaf}{ANNkd\_leaf}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_node}}\ \ \ \ \ \textcolor{comment}{//\ leaf\ node\ for\ kd-\/tree}}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_pts;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ points\ in\ bucket}}
+\DoxyCodeLine{00094\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ bkt;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bucket\ of\ points}}
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__leaf}{ANNkd\_leaf}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constructor}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ANNidxArray\ \ \ \ \ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bucket}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ n\_pts\ \ \ \ \ \ \ =\ n;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points\ in\ bucket}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ bkt\ \ \ \ \ \ \ \ \ =\ b;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ bucket}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__leaf}{\string~ANNkd\_leaf}}()\ \{\ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ destructor\ (none)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ getStats(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ tree\ statistics}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dim,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}\ \&st,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ statistics}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \&bnd\_box);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ box}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ print(\textcolor{keywordtype}{int}\ level,\ ostream\ \&out);\textcolor{comment}{//\ print\ node}}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dump(ostream\ \&out);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dump\ node}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_search(ANNdist);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ standard\ search}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_pri\_search(ANNdist);\ \ \ \ \ \ \ \textcolor{comment}{//\ priority\ search}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_FR\_search(ANNdist);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ fixed-\/radius\ search}}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ \ \ \ \ \ KD\_TRIVIAL\ is\ a\ special\ pointer\ to\ an\ empty\ leaf\ node.\ Since}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ \ \ \ \ some\ splitting\ rules\ generate\ many\ (more\ than\ 50\%)\ trivial}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ \ \ \ \ \ leaves,\ we\ use\ this\ one\ shared\ node\ to\ save\ space.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \ \ \ \ \ The\ pointer\ is\ initialized\ to\ NULL,\ but\ whenever\ a\ kd-\/tree\ is}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ \ \ \ \ \ created,\ we\ allocate\ this\ node,\ if\ it\ has\ not\ already\ been}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ \ \ \ allocated.\ This\ node\ is\ *never*\ deallocated,\ so\ it\ produces}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ \ \ \ \ a\ small\ memory\ leak.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nkd__leaf}{ANNkd\_leaf}}\ *KD\_TRIVIAL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ trivial\ (empty)\ leaf\ node}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ kd-\/tree\ splitting\ node.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ \ \ \ \ Splitting\ nodes\ contain\ a\ cutting\ dimension\ and\ a\ cutting\ value.}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ \ \ \ \ \ These\ indicate\ the\ axis-\/parellel\ plane\ which\ subdivide\ the}}
+\DoxyCodeLine{00135\ \textcolor{comment}{//\ \ \ \ \ \ box\ for\ this\ node.\ The\ extent\ of\ the\ bounding\ box\ along\ the}}
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ \ \ \ \ \ cutting\ dimension\ is\ maintained\ (this\ is\ used\ to\ speed\ up\ point}}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \ \ \ \ \ to\ box\ distance\ calculations)\ [we\ do\ not\ store\ the\ entire\ bounding}}
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ \ \ \ \ \ box\ since\ this\ may\ be\ wasteful\ of\ space\ in\ high\ dimensions].}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ \ \ \ \ \ We\ also\ store\ pointers\ to\ the\ 2\ children.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nkd__split}{ANNkd\_split}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_node}}\ \ \textcolor{comment}{//\ splitting\ node\ of\ a\ kd-\/tree}}
+\DoxyCodeLine{00143\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cut\_dim;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ dim\ orthogonal\ to\ cutting\ plane}}
+\DoxyCodeLine{00145\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ cut\_val;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ location\ of\ cutting\ plane}}
+\DoxyCodeLine{00146\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ cd\_bnds[2];\ \ \ \ \ \textcolor{comment}{//\ lower\ and\ upper\ bounds\ of}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rectangle\ along\ cut\_dim}}
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_ptr}}\ \ \ \ \ \ \ \ \ \ child[2];\ \ \ \ \ \ \ \textcolor{comment}{//\ left\ and\ right\ children}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__split}{ANNkd\_split}}(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ constructor}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cd,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ ANNcoord\ cv,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ ANNcoord\ lv,\ ANNcoord\ hv,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ low\ and\ high\ values}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_ptr}}\ lc=NULL,\ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_ptr}}\ hc=NULL)\ \textcolor{comment}{//\ children}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ cut\_dim\ \ \ \ \ =\ cd;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ cut\_val\ \ \ \ \ =\ cv;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ cd\_bnds[ANN\_LO]\ =\ lv;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ lower\ bound\ for\ rectangle}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ cd\_bnds[ANN\_HI]\ =\ hv;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ upper\ bound\ for\ rectangle}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ child[ANN\_LO]\ \ \ =\ lc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ left\ child}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ child[ANN\_HI]\ \ \ =\ hc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ right\ child}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd__split}{\string~ANNkd\_split}}()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ destructor}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (child[ANN\_LO]!=\ NULL\ \&\&\ child[ANN\_LO]!=\ KD\_TRIVIAL)}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ child[ANN\_LO];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (child[ANN\_HI]!=\ NULL\ \&\&\ child[ANN\_HI]!=\ KD\_TRIVIAL)}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ child[ANN\_HI];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ getStats(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ tree\ statistics}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dim,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}\ \&st,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ statistics}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \&bnd\_box);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ box}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ print(\textcolor{keywordtype}{int}\ level,\ ostream\ \&out);\textcolor{comment}{//\ print\ node}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ dump(ostream\ \&out);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dump\ node}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_search(ANNdist);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ standard\ search}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_pri\_search(ANNdist);\ \ \ \ \ \ \ \textcolor{comment}{//\ priority\ search}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ann\_FR\_search(ANNdist);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ fixed-\/radius\ search}}
+\DoxyCodeLine{00182\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00185\ \textcolor{comment}{//\ \ \ \ \ \ External\ entry\ points}}
+\DoxyCodeLine{00186\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\_ptr}}\ rkd\_tree(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ recursive\ construction\ of\ kd-\/tree}}
+\DoxyCodeLine{00189\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00190\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ to\ store\ in\ subtree}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bsp,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bucket\ space}}
+\DoxyCodeLine{00194\ \ \ \ \ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \ \ \ \ \ \ \&bnd\_box,\ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ box\ for\ current\ node}}
+\DoxyCodeLine{00195\ \ \ \ \ ANNkd\_splitter\ \ \ \ \ \ splitter);\ \ \ \ \ \ \textcolor{comment}{//\ splitting\ routine}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

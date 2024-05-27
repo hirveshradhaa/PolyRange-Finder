@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['parent_5fpointer_0',['parent_pointer',['../classnlohmann_1_1json__pointer.html#afdaacce1edb7145e0434e014f0e8685a',1,'nlohmann::json_pointer']]],
+  ['parse_1',['parse',['../classnlohmann_1_1detail_1_1parser.html#a75fb9145ea85f1ad9cc14f61981e1111',1,'nlohmann::detail::parser::parse()'],['../classnlohmann_1_1basic__json.html#a15018ade392a844ea32d5188d1a0b9c6',1,'nlohmann::basic_json::parse(InputType &amp;&amp;i, const parser_callback_t cb=nullptr, const bool allow_exceptions=true, const bool ignore_comments=false)'],['../classnlohmann_1_1basic__json.html#ad832c70af0989389a9a104c21d2d1c5c',1,'nlohmann::basic_json::parse(IteratorType first, IteratorType last, const parser_callback_t cb=nullptr, const bool allow_exceptions=true, const bool ignore_comments=false)']]],
+  ['parse_5ferror_2',['parse_error',['../classnlohmann_1_1detail_1_1parse__error.html',1,'nlohmann::detail::parse_error'],['../structnlohmann_1_1json__sax.html#a60287e3bd85f489e04c83f7e3b76e613',1,'nlohmann::json_sax::parse_error()'],['../classnlohmann_1_1detail_1_1lexer__base.html#aa3538cce439a2de6c7893e627b38c454a456e19aeafa334241c7ff3f589547f9d',1,'nlohmann::detail::lexer_base::parse_error']]],
+  ['parse_5fevent_5ft_3',['parse_event_t',['../classnlohmann_1_1basic__json.html#a24086b03c5c063849df0307f78c41c54',1,'nlohmann::basic_json::parse_event_t'],['../namespacenlohmann_1_1detail.html#a59e696b1dad6d0d99c172ac4518c2042',1,'nlohmann::detail::parse_event_t']]],
+  ['parser_4',['parser',['../classnlohmann_1_1detail_1_1parser.html',1,'nlohmann::detail::parser&lt; BasicJsonType, InputAdapterType &gt;'],['../classnlohmann_1_1detail_1_1parser.html#a33b852bf63cba58310d9c0d1242cfb12',1,'nlohmann::detail::parser::parser()']]],
+  ['parser_5fcallback_5ft_5',['parser_callback_t',['../classnlohmann_1_1basic__json.html#a0273d074462644e5d5a7ff313ad0d742',1,'nlohmann::basic_json']]],
+  ['patch_6',['patch',['../classnlohmann_1_1basic__json.html#adcc786998f220a5b3083ee8a37c4553e',1,'nlohmann::basic_json']]],
+  ['point_7',['Point',['../class_point.html',1,'Point'],['../class_point.html#ad92f2337b839a94ce97dcdb439b4325a',1,'Point::Point()'],['../class_point.html#a78b55e8d5466bb8c2cf60fa55f2562ff',1,'Point::Point(double x, double y)']]],
+  ['point_2ecpp_8',['Point.cpp',['../_point_8cpp.html',1,'']]],
+  ['pointer_9',['pointer',['../classnlohmann_1_1detail_1_1iter__impl.html#aee0b367a72ce2b0cda1fcb1008216b14',1,'nlohmann::detail::iter_impl::pointer'],['../classnlohmann_1_1basic__json.html#a42e5c23402f4c2e1df487e1d102bc5fa',1,'nlohmann::basic_json::pointer']]],
+  ['pointinsidebox_10',['pointinsidebox',['../class_range_search.html#aa10aaeba89676ff65acd25ab3f25defb',1,'RangeSearch']]],
+  ['pointinsidepoly_11',['pointinsidepoly',['../class_range_search.html#a19f2ee1cb53177852d27faf9acd98b2a',1,'RangeSearch']]],
+  ['polygon_12',['Polygon',['../class_polygon.html',1,'Polygon'],['../class_polygon.html#abecec7d5e37256069fd14ae20363f668',1,'Polygon::Polygon()']]],
+  ['polygon_2ecpp_13',['Polygon.cpp',['../_polygon_8cpp.html',1,'']]],
+  ['pop_5fback_14',['pop_back',['../classnlohmann_1_1json__pointer.html#a4b1ee4d511ca195bed896a3da47e264c',1,'nlohmann::json_pointer']]],
+  ['position_5ft_15',['position_t',['../structnlohmann_1_1detail_1_1position__t.html',1,'nlohmann::detail']]],
+  ['primitive_5fiterator_16',['primitive_iterator',['../structnlohmann_1_1detail_1_1internal__iterator.html#a2b3bb45f968210e42c282017eeeb63a8',1,'nlohmann::detail::internal_iterator']]],
+  ['primitive_5fiterator_5ft_17',['primitive_iterator_t',['../classnlohmann_1_1detail_1_1primitive__iterator__t.html',1,'nlohmann::detail']]],
+  ['priority_5ftag_18',['priority_tag',['../structnlohmann_1_1detail_1_1priority__tag.html',1,'nlohmann::detail']]],
+  ['priority_5ftag_3c_200_20_3e_19',['priority_tag&lt; 0 &gt;',['../structnlohmann_1_1detail_1_1priority__tag_3_010_01_4.html',1,'nlohmann::detail']]],
+  ['project_20on_20linprog_3a_20',['How to compile and run the project on linprog:',['../md__readme.html#autotoc_md0',1,'']]],
+  ['push_5fback_21',['push_back',['../classnlohmann_1_1json__pointer.html#a697d12b5bd6205f8866691b166b7c7dc',1,'nlohmann::json_pointer::push_back(const std::string &amp;token)'],['../classnlohmann_1_1json__pointer.html#ac228b13596d3c34185da9fe61b570194',1,'nlohmann::json_pointer::push_back(std::string &amp;&amp;token)'],['../classnlohmann_1_1basic__json.html#ab9e0253c92736db021840105d374c4c4',1,'nlohmann::basic_json::push_back(basic_json &amp;&amp;val)'],['../classnlohmann_1_1basic__json.html#a3405d38087e13994a5a4556065b0be6d',1,'nlohmann::basic_json::push_back(const basic_json &amp;val)'],['../classnlohmann_1_1basic__json.html#ad704839e6a5195e3b76f22e2b9aa63ee',1,'nlohmann::basic_json::push_back(const typename object_t::value_type &amp;val)'],['../classnlohmann_1_1basic__json.html#a4567cf75f19b1efca090f75d7a8a350a',1,'nlohmann::basic_json::push_back(initializer_list_t init)']]]
+];

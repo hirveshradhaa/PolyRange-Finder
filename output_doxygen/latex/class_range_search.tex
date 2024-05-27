@@ -1,0 +1,118 @@
+\doxysection{Range\+Search Class Reference}
+\hypertarget{class_range_search}{}\label{class_range_search}\index{RangeSearch@{RangeSearch}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_range_search_a94ed741f518797ac3542f50e65f5098e}{Range\+Search}} (const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&points)
+\item 
+\mbox{\hyperlink{class_range_search_ae8825bfbf265cc9735479543af501036}{\texorpdfstring{$\sim$}{\string~}\+Range\+Search}} ()
+\item 
+bool \mbox{\hyperlink{class_range_search_aa10aaeba89676ff65acd25ab3f25defb}{pointinsidebox}} (const \mbox{\hyperlink{class_point}{Point}} \&pt, const \mbox{\hyperlink{class_point}{Point}} \&bb\+Min, const \mbox{\hyperlink{class_point}{Point}} \&bb\+Max)
+\item 
+bool \mbox{\hyperlink{class_range_search_a19f2ee1cb53177852d27faf9acd98b2a}{pointinsidepoly}} (const \mbox{\hyperlink{class_point}{Point}} \&pt, const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&polygon)
+\item 
+int \mbox{\hyperlink{class_range_search_a082f83fc001a90fe9c02e735d691563a}{query\+Poly\+Count}} (const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&polygon)
+\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{class_range_search_ada65b6fa3f5bd73fdc3a8b9416b67466}{query\+Poly}} (const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&polygon)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_range_search_a94ed741f518797ac3542f50e65f5098e}\label{class_range_search_a94ed741f518797ac3542f50e65f5098e} 
+\index{RangeSearch@{RangeSearch}!RangeSearch@{RangeSearch}}
+\index{RangeSearch@{RangeSearch}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{RangeSearch()}{RangeSearch()}}
+{\footnotesize\ttfamily Range\+Search\+::\+Range\+Search (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{points }\end{DoxyParamCaption})}
+
+Constructs a \doxylink{class_range_search}{Range\+Search} object that initializes a kd-\/tree from a list of points. Each point\textquotesingle{}s coordinates are copied into a dynamically allocated array suitable for ANN operations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & Vector of \doxylink{class_point}{Point} objects that represent the dataset over which queries will be performed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_range_search_ae8825bfbf265cc9735479543af501036}\label{class_range_search_ae8825bfbf265cc9735479543af501036} 
+\index{RangeSearch@{RangeSearch}!````~RangeSearch@{\texorpdfstring{$\sim$}{\string~}RangeSearch}}
+\index{````~RangeSearch@{\texorpdfstring{$\sim$}{\string~}RangeSearch}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}RangeSearch()}{\string~RangeSearch()}}
+{\footnotesize\ttfamily Range\+Search\+::\texorpdfstring{$\sim$}{\string~}\+Range\+Search (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor that cleans up the kd-\/tree and associated point data. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_range_search_aa10aaeba89676ff65acd25ab3f25defb}\label{class_range_search_aa10aaeba89676ff65acd25ab3f25defb} 
+\index{RangeSearch@{RangeSearch}!pointinsidebox@{pointinsidebox}}
+\index{pointinsidebox@{pointinsidebox}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{pointinsidebox()}{pointinsidebox()}}
+{\footnotesize\ttfamily bool Range\+Search\+::pointinsidebox (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_point}{Point}} \&}]{pt,  }\item[{const \mbox{\hyperlink{class_point}{Point}} \&}]{bb\+Min,  }\item[{const \mbox{\hyperlink{class_point}{Point}} \&}]{bb\+Max }\end{DoxyParamCaption})}
+
+Determines if a point is inside a specified bounding box.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pt} & The point to check. \\
+\hline
+{\em bb\+Min} & The minimum coordinates (bottom-\/left corner) of the bounding box. \\
+\hline
+{\em bb\+Max} & The maximum coordinates (top-\/right corner) of the bounding box. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the point is within the bounding box, False otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_range_search_a19f2ee1cb53177852d27faf9acd98b2a}\label{class_range_search_a19f2ee1cb53177852d27faf9acd98b2a} 
+\index{RangeSearch@{RangeSearch}!pointinsidepoly@{pointinsidepoly}}
+\index{pointinsidepoly@{pointinsidepoly}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{pointinsidepoly()}{pointinsidepoly()}}
+{\footnotesize\ttfamily bool Range\+Search\+::pointinsidepoly (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_point}{Point}} \&}]{pt,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{polygon }\end{DoxyParamCaption})}
+
+Checks if a point is within the specified polygon using the ray-\/casting algorithm. This function determines point inclusion by counting edge crossings from the point to infinity.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pt} & The point to check. \\
+\hline
+{\em polygon} & A vector of points defining the polygon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the point is inside the polygon, False otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_range_search_ada65b6fa3f5bd73fdc3a8b9416b67466}\label{class_range_search_ada65b6fa3f5bd73fdc3a8b9416b67466} 
+\index{RangeSearch@{RangeSearch}!queryPoly@{queryPoly}}
+\index{queryPoly@{queryPoly}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{queryPoly()}{queryPoly()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ Range\+Search\+::query\+Poly (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{polygon }\end{DoxyParamCaption})}
+
+Queries the kd-\/tree to find indices of points within a specified polygon.
+
+
+\begin{DoxyParams}{Parameters}
+{\em polygon} & Vector of points defining the polygon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector containing indices of points that are inside the polygon. 
+\end{DoxyReturn}
+\Hypertarget{class_range_search_a082f83fc001a90fe9c02e735d691563a}\label{class_range_search_a082f83fc001a90fe9c02e735d691563a} 
+\index{RangeSearch@{RangeSearch}!queryPolyCount@{queryPolyCount}}
+\index{queryPolyCount@{queryPolyCount}!RangeSearch@{RangeSearch}}
+\doxysubsubsection{\texorpdfstring{queryPolyCount()}{queryPolyCount()}}
+{\footnotesize\ttfamily int Range\+Search\+::query\+Poly\+Count (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{polygon }\end{DoxyParamCaption})}
+
+Counts the number of points within a specified polygon.
+
+
+\begin{DoxyParams}{Parameters}
+{\em polygon} & Vector of points defining the polygon. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The count of points inside the polygon. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Range\+Search.\+h\item 
+src/Range\+Search.\+cpp\end{DoxyCompactItemize}

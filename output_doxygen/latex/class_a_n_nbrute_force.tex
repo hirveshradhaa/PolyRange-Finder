@@ -1,0 +1,83 @@
+\doxysection{ANNbrute\+Force Class Reference}
+\hypertarget{class_a_n_nbrute_force}{}\label{class_a_n_nbrute_force}\index{ANNbruteForce@{ANNbruteForce}}
+Inheritance diagram for ANNbrute\+Force\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_a_n_nbrute_force}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_n_nbrute_force_adf86620260f8a08784a745fde28e67a1}\label{class_a_n_nbrute_force_adf86620260f8a08784a745fde28e67a1} 
+{\bfseries ANNbrute\+Force} (ANNpoint\+Array pa, int n, int dd)
+\item 
+void \mbox{\hyperlink{class_a_n_nbrute_force_ac18a8d4dd4550a8336228d0d219cbc18}{annk\+Search}} (ANNpoint q, int k, ANNidx\+Array nn\+\_\+idx, ANNdist\+Array dd, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nbrute_force_a2b72f0687a5fc325471213b1b42f932f}{annk\+FRSearch}} (ANNpoint q, ANNdist sq\+Rad, int k=0, ANNidx\+Array nn\+\_\+idx=NULL, ANNdist\+Array dd=NULL, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nbrute_force_ad7894b12b925b0c3bbeb57d5ba260285}{the\+Dim}} ()
+\item 
+int \mbox{\hyperlink{class_a_n_nbrute_force_acbf6eef7ce9c6999435c62f678afaba4}{n\+Points}} ()
+\item 
+ANNpoint\+Array \mbox{\hyperlink{class_a_n_nbrute_force_a97a436f7288964a2f7cb84ce3d056350}{the\+Points}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_a_n_nbrute_force_a2b72f0687a5fc325471213b1b42f932f}\label{class_a_n_nbrute_force_a2b72f0687a5fc325471213b1b42f932f} 
+\index{ANNbruteForce@{ANNbruteForce}!annkFRSearch@{annkFRSearch}}
+\index{annkFRSearch@{annkFRSearch}!ANNbruteForce@{ANNbruteForce}}
+\doxysubsubsection{\texorpdfstring{annkFRSearch()}{annkFRSearch()}}
+{\footnotesize\ttfamily int ANNbrute\+Force\+::annk\+FRSearch (\begin{DoxyParamCaption}\item[{ANNpoint}]{q,  }\item[{ANNdist}]{sq\+Rad,  }\item[{int}]{k = {\ttfamily 0},  }\item[{ANNidx\+Array}]{nn\+\_\+idx = {\ttfamily NULL},  }\item[{ANNdist\+Array}]{dd = {\ttfamily NULL},  }\item[{double}]{eps = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nbrute_force_ac18a8d4dd4550a8336228d0d219cbc18}\label{class_a_n_nbrute_force_ac18a8d4dd4550a8336228d0d219cbc18} 
+\index{ANNbruteForce@{ANNbruteForce}!annkSearch@{annkSearch}}
+\index{annkSearch@{annkSearch}!ANNbruteForce@{ANNbruteForce}}
+\doxysubsubsection{\texorpdfstring{annkSearch()}{annkSearch()}}
+{\footnotesize\ttfamily void ANNbrute\+Force\+::annk\+Search (\begin{DoxyParamCaption}\item[{ANNpoint}]{q,  }\item[{int}]{k,  }\item[{ANNidx\+Array}]{nn\+\_\+idx,  }\item[{ANNdist\+Array}]{dd,  }\item[{double}]{eps = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nbrute_force_acbf6eef7ce9c6999435c62f678afaba4}\label{class_a_n_nbrute_force_acbf6eef7ce9c6999435c62f678afaba4} 
+\index{ANNbruteForce@{ANNbruteForce}!nPoints@{nPoints}}
+\index{nPoints@{nPoints}!ANNbruteForce@{ANNbruteForce}}
+\doxysubsubsection{\texorpdfstring{nPoints()}{nPoints()}}
+{\footnotesize\ttfamily int ANNbrute\+Force\+::n\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nbrute_force_ad7894b12b925b0c3bbeb57d5ba260285}\label{class_a_n_nbrute_force_ad7894b12b925b0c3bbeb57d5ba260285} 
+\index{ANNbruteForce@{ANNbruteForce}!theDim@{theDim}}
+\index{theDim@{theDim}!ANNbruteForce@{ANNbruteForce}}
+\doxysubsubsection{\texorpdfstring{theDim()}{theDim()}}
+{\footnotesize\ttfamily int ANNbrute\+Force\+::the\+Dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nbrute_force_a97a436f7288964a2f7cb84ce3d056350}\label{class_a_n_nbrute_force_a97a436f7288964a2f7cb84ce3d056350} 
+\index{ANNbruteForce@{ANNbruteForce}!thePoints@{thePoints}}
+\index{thePoints@{thePoints}!ANNbruteForce@{ANNbruteForce}}
+\doxysubsubsection{\texorpdfstring{thePoints()}{thePoints()}}
+{\footnotesize\ttfamily ANNpoint\+Array ANNbrute\+Force\+::the\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+ANN/ANN.\+h\item 
+ann\+\_\+src/brute.\+cpp\end{DoxyCompactItemize}

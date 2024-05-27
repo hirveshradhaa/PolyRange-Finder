@@ -1,0 +1,91 @@
+\doxysection{kd\+\_\+split.\+h}
+\hypertarget{kd__split_8h_source}{}\label{kd__split_8h_source}\index{ann\_src/kd\_split.h@{ann\_src/kd\_split.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File:\ \ \ \ \ \ \ \ \ \ \ \ kd\_split.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Programmer:\ \ \ \ \ \ Sunil\ Arya\ and\ David\ Mount}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Description:\ \ \ \ \ Methods\ for\ splitting\ kd-\/trees}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Last\ modified:\ \ \ 01/04/05\ (Version\ 1.0)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Copyright\ (c)\ 1997-\/2005\ University\ of\ Maryland\ and\ Sunil\ Arya\ and}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ David\ Mount.\ \ All\ Rights\ Reserved.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ This\ software\ and\ related\ documentation\ is\ part\ of\ the\ Approximate}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Nearest\ Neighbor\ Library\ (ANN).\ \ This\ software\ is\ provided\ under}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ the\ provisions\ of\ the\ Lesser\ GNU\ Public\ License\ (LGPL).\ \ See\ the}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ file\ ../ReadMe.txt\ for\ further\ information.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ The\ University\ of\ Maryland\ (U.M.)\ and\ the\ authors\ make\ no}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ representations\ about\ the\ suitability\ or\ fitness\ of\ this\ software\ for}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ any\ purpose.\ \ It\ is\ provided\ "{}as\ is"{}\ without\ express\ or\ implied}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ warranty.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ History:}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ Revision\ 0.1\ \ 03/04/98}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ \ \ Initial\ release}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ ANN\_KD\_SPLIT\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ANN\_KD\_SPLIT\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}kd\_tree.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ kd-\/tree\ definitions}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ External\ entry\ points}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \ \ \ \ \ These\ are\ all\ splitting\ procedures\ for\ kd-\/trees.}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ kd\_split(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ standard\ (optimized)\ kd-\/splitter}}
+\DoxyCodeLine{00036\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00037\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00042\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ midpt\_split(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ midpoint\ kd-\/splitter}}
+\DoxyCodeLine{00046\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00047\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00052\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ sl\_midpt\_split(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sliding\ midpoint\ kd-\/splitter}}
+\DoxyCodeLine{00056\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00057\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00062\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ fair\_split(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fair-\/split\ kd-\/splitter}}
+\DoxyCodeLine{00066\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00067\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00072\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ sl\_fair\_split(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sliding\ fair-\/split\ kd-\/splitter}}
+\DoxyCodeLine{00076\ \ \ \ \ ANNpointArray\ \ \ \ \ \ \ pa,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ array\ (unaltered)}}
+\DoxyCodeLine{00077\ \ \ \ \ ANNidxArray\ \ \ \ \ \ \ \ \ pidx,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ indices\ (permuted\ on\ return)}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_north_rect}{ANNorthRect}}\ \ \ \ \&bnds,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bounding\ rectangle\ for\ cell}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ points}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dim,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cut\_dim,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ dimension\ (returned)}}
+\DoxyCodeLine{00082\ \ \ \ \ ANNcoord\ \ \ \ \ \ \ \ \ \ \ \ \&cut\_val,\ \ \ \ \ \ \ \textcolor{comment}{//\ cutting\ value\ (returned)}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&n\_lo);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ of\ points\ on\ low\ side\ (returned)}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

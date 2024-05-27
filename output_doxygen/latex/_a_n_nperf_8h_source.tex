@@ -1,0 +1,229 @@
+\doxysection{ANNperf.\+h}
+\hypertarget{_a_n_nperf_8h_source}{}\label{_a_n_nperf_8h_source}\index{include/ANN/ANNperf.h@{include/ANN/ANNperf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ File:\ \ \ \ \ \ \ \ \ \ \ ANNperf.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ \ Programmer:\ \ \ \ \ Sunil\ Arya\ and\ David\ Mount}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ Last\ modified:\ \ 03/04/98\ (Release\ 0.1)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ Description:\ \ \ \ Include\ file\ for\ ANN\ performance\ stats}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ Some\ of\ the\ code\ for\ statistics\ gathering\ has\ been\ adapted}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ from\ the\ SmplStat.h\ package\ in\ the\ g++\ library.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Copyright\ (c)\ 1997-\/2005\ University\ of\ Maryland\ and\ Sunil\ Arya\ and}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ David\ Mount.\ \ All\ Rights\ Reserved.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ This\ software\ and\ related\ documentation\ is\ part\ of\ the\ Approximate}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Nearest\ Neighbor\ Library\ (ANN).\ \ This\ software\ is\ provided\ under}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ the\ provisions\ of\ the\ Lesser\ GNU\ Public\ License\ (LGPL).\ \ See\ the}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ file\ ../ReadMe.txt\ for\ further\ information.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ The\ University\ of\ Maryland\ (U.M.)\ and\ the\ authors\ make\ no}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ representations\ about\ the\ suitability\ or\ fitness\ of\ this\ software\ for}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ any\ purpose.\ \ It\ is\ provided\ "{}as\ is"{}\ without\ express\ or\ implied}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ warranty.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ \ \ History:}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ \ Revision\ 0.1\ \ 03/04/98}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Initial\ release}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ \ \ \ \ Revision\ 1.0\ \ 04/01/05}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Added\ ANN\_\ prefix\ to\ avoid\ name\ conflicts.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ ANNperf\_H}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ANNperf\_H}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ basic\ includes}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <ANN/ANN.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ basic\ ANN\ includes}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ kd-\/tree\ stats\ object}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ This\ object\ is\ used\ for\ collecting\ information\ about\ a\ kd-\/tree}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ or\ bd-\/tree.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stats\ on\ kd-\/tree}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ dim;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dimension\ of\ space}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ n\_pts;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ of\ points}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ bkt\_size;\ \ \ \ \ \ \ \textcolor{comment}{//\ bucket\ size}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ n\_lf;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ of\ leaves\ (including\ trivial)}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ n\_tl;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ of\ trivial\ leaves\ (no\ points)}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ n\_spl;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ of\ splitting\ nodes}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ n\_shr;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no.\ of\ shrinking\ nodes\ (for\ bd-\/trees)}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ depth;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ depth\ of\ tree}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ sum\_ar;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sum\ of\ leaf\ aspect\ ratios}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ avg\_ar;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ average\ leaf\ aspect\ ratio}}
+\DoxyCodeLine{00057\ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ stats}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ reset(\textcolor{keywordtype}{int}\ d=0,\ \textcolor{keywordtype}{int}\ n=0,\ \textcolor{keywordtype}{int}\ bs=0)}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ dim\ =\ d;\ n\_pts\ =\ n;\ bkt\_size\ =\ bs;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ n\_lf\ =\ n\_tl\ =\ n\_spl\ =\ n\_shr\ =\ depth\ =\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ sum\_ar\ =\ avg\_ar\ =\ 0.0;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}()\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ basic\ constructor}}
+\DoxyCodeLine{00067\ \ \ \ \ \{\ reset();\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ merge(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_a_n_nkd_stats}{ANNkdStats}}\ \&st);\ \textcolor{comment}{//\ merge\ stats\ from\ child\ }}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ \ ANNsampStat}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ A\ sample\ stat\ collects\ numeric\ (double)\ samples\ and\ returns\ some}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ simple\ statistics.\ \ Its\ main\ functions\ are:}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ reset()\ \ \ \ \ Reset\ to\ no\ samples.}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \ \ \ \ \ +=\ x\ \ \ \ \ \ \ \ Include\ sample\ x.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//\ \ \ \ \ \ samples()\ \ \ Return\ number\ of\ samples.}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ \ \ \ \ mean()\ \ \ \ \ \ Return\ mean\ of\ samples.}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ \ \ \ stdDev()\ \ \ \ Return\ standard\ deviation}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ \ \ \ \ min()\ \ \ \ \ \ \ Return\ minimum\ of\ samples.}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ \ \ \ \ max()\ \ \ \ \ \ \ Return\ maximum\ of\ samples.}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00085\ \textcolor{keyword}{class\ }DLL\_API\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ n;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ samples}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ sum;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sum}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ sum2;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sum\ of\ squares}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ minVal,\ maxVal;\ \textcolor{comment}{//\ min\ and\ max}}
+\DoxyCodeLine{00090\ public\ :}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ reset()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ everything}}
+\DoxyCodeLine{00092\ \ \ \ \ \{\ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ n\ =\ 0;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ sum\ =\ sum2\ =\ 0;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ minVal\ =\ ANN\_DBL\_MAX;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ maxVal\ =\ -\/ANN\_DBL\_MAX;\ }
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}()\ \{\ reset();\ \}\ \ \ \ \ \ \ \textcolor{comment}{//\ constructor}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ operator+=(\textcolor{keywordtype}{double}\ x)\ \ \ \ \ \ \ \textcolor{comment}{//\ add\ sample}}
+\DoxyCodeLine{00102\ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ n++;\ \ sum\ +=\ x;\ \ sum2\ +=\ x*x;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <\ minVal)\ minVal\ =\ x;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >\ maxVal)\ maxVal\ =\ x;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{int}\ samples()\ \{\ \textcolor{keywordflow}{return}\ n;\ \}\ \ \ \ \ \textcolor{comment}{//\ number\ of\ samples}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{double}\ mean()\ \{\ \textcolor{keywordflow}{return}\ sum/n;\ \}\ \textcolor{comment}{//\ mean}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ standard\ deviation}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{double}\ stdDev()\ \{\ \textcolor{keywordflow}{return}\ sqrt((sum2\ -\/\ (sum*sum)/n)/(n-\/1));\}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{double}\ min()\ \{\ \textcolor{keywordflow}{return}\ minVal;\ \}\ \textcolor{comment}{//\ minimum}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{double}\ max()\ \{\ \textcolor{keywordflow}{return}\ maxVal;\ \}\ \textcolor{comment}{//\ maximum}}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ \ \ \ \ Operation\ count\ updates}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifdef\ ANN\_PERF}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \#define\ ANN\_FLOP(n)\ \ \ \{ann\_Nfloat\_ops\ +=\ (n);\}}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \#define\ ANN\_LEAF(n)\ \ \ \{ann\_Nvisit\_lfs\ +=\ (n);\}}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \#define\ ANN\_SPL(n)\ \ \ \ \{ann\_Nvisit\_spl\ +=\ (n);\}}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \#define\ ANN\_SHR(n)\ \ \ \ \{ann\_Nvisit\_shr\ +=\ (n);\}}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \#define\ ANN\_PTS(n)\ \ \ \ \{ann\_Nvisit\_pts\ +=\ (n);\}}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \#define\ ANN\_COORD(n)\ \ \{ann\_Ncoord\_hts\ +=\ (n);\}}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \#define\ ANN\_FLOP(n)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ \#define\ ANN\_LEAF(n)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ \#define\ ANN\_SPL(n)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \#define\ ANN\_SHR(n)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \#define\ ANN\_PTS(n)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \#define\ ANN\_COORD(n)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ \ Performance\ statistics}}
+\DoxyCodeLine{00141\ \textcolor{comment}{//\ \ The\ following\ data\ and\ routines\ are\ used\ for\ computing\ performance}}
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ \ statistics\ for\ nearest\ neighbor\ searching.\ \ Because\ these\ routines}}
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ \ can\ slow\ the\ code\ down,\ they\ can\ be\ activated\ and\ deactiviated\ by}}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ defining\ the\ ANN\_PERF\ variable,\ by\ compiling\ with\ the\ option:}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ \ -\/DANN\_PERF}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ \ Global\ counters\ for\ performance\ measurement}}
+\DoxyCodeLine{00150\ \textcolor{comment}{//}}
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ \ visit\_lfs\ \ \ The\ number\ of\ leaf\ nodes\ visited\ in\ the}}
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ tree.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{//}}
+\DoxyCodeLine{00154\ \textcolor{comment}{//\ \ visit\_spl\ \ \ The\ number\ of\ splitting\ nodes\ visited\ in\ the}}
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ tree.}}
+\DoxyCodeLine{00156\ \textcolor{comment}{//}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ visit\_shr\ \ \ The\ number\ of\ shrinking\ nodes\ visited\ in\ the}}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ tree.}}
+\DoxyCodeLine{00159\ \textcolor{comment}{//}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ \ visit\_pts\ \ \ The\ number\ of\ points\ visited\ in\ all\ the}}
+\DoxyCodeLine{00161\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ leaf\ nodes\ visited.\ Equivalently,\ this}}
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ is\ the\ number\ of\ points\ for\ which\ distance}}
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ calculations\ are\ performed.}}
+\DoxyCodeLine{00164\ \textcolor{comment}{//}}
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ \ coord\_hts\ \ \ The\ number\ of\ times\ a\ coordinate\ of\ a\ }}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ data\ point\ is\ accessed.\ This\ is\ generally}}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ less\ than\ visit\_pts*d\ if\ partial\ distance}}
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ calculation\ is\ used.\ \ This\ count\ is\ low}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ in\ the\ sense\ that\ if\ a\ coordinate\ is\ hit}}
+\DoxyCodeLine{00170\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ many\ times\ in\ the\ same\ routine\ we\ may}}
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ count\ it\ only\ once.}}
+\DoxyCodeLine{00172\ \textcolor{comment}{//}}
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ \ float\_ops\ \ \ The\ number\ of\ floating\ point\ operations.}}
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ includes\ all\ operations\ in\ the\ heap}}
+\DoxyCodeLine{00175\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ as\ well\ as\ distance\ calculations\ to\ boxes.}}
+\DoxyCodeLine{00176\ \textcolor{comment}{//}}
+\DoxyCodeLine{00177\ \textcolor{comment}{//\ \ average\_err\ The\ average\ error\ of\ each\ query\ (the}}
+\DoxyCodeLine{00178\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ error\ of\ the\ reported\ point\ to\ the\ true}}
+\DoxyCodeLine{00179\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ nearest\ neighbor).\ \ For\ k\ nearest\ neighbors}}
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ the\ error\ is\ computed\ k\ times.}}
+\DoxyCodeLine{00181\ \textcolor{comment}{//}}
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ \ rank\_err\ \ \ \ The\ rank\ error\ of\ each\ query\ (the\ difference}}
+\DoxyCodeLine{00183\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ in\ the\ rank\ of\ the\ reported\ point\ and\ its}}
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ true\ rank).}}
+\DoxyCodeLine{00185\ \textcolor{comment}{//}}
+\DoxyCodeLine{00186\ \textcolor{comment}{//\ \ data\_pts\ \ \ \ The\ number\ of\ data\ points.\ \ This\ is\ not}}
+\DoxyCodeLine{00187\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ counter,\ but\ used\ in\ stats\ computation.}}
+\DoxyCodeLine{00188\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Ndata\_pts;\ \ \textcolor{comment}{//\ number\ of\ data\ points}}
+\DoxyCodeLine{00191\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Nvisit\_lfs;\ \textcolor{comment}{//\ number\ of\ leaf\ nodes\ visited}}
+\DoxyCodeLine{00192\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Nvisit\_spl;\ \textcolor{comment}{//\ number\ of\ splitting\ nodes\ visited}}
+\DoxyCodeLine{00193\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Nvisit\_shr;\ \textcolor{comment}{//\ number\ of\ shrinking\ nodes\ visited}}
+\DoxyCodeLine{00194\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Nvisit\_pts;\ \textcolor{comment}{//\ visited\ points\ for\ one\ query}}
+\DoxyCodeLine{00195\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Ncoord\_hts;\ \textcolor{comment}{//\ coordinate\ hits\ for\ one\ query}}
+\DoxyCodeLine{00196\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ ann\_Nfloat\_ops;\ \textcolor{comment}{//\ floating\ ops\ for\ one\ query}}
+\DoxyCodeLine{00197\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_visit\_lfs;\ \ \textcolor{comment}{//\ stats\ on\ leaf\ nodes\ visits}}
+\DoxyCodeLine{00198\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_visit\_spl;\ \ \textcolor{comment}{//\ stats\ on\ splitting\ nodes\ visits}}
+\DoxyCodeLine{00199\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_visit\_shr;\ \ \textcolor{comment}{//\ stats\ on\ shrinking\ nodes\ visits}}
+\DoxyCodeLine{00200\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_visit\_nds;\ \ \textcolor{comment}{//\ stats\ on\ total\ nodes\ visits}}
+\DoxyCodeLine{00201\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_visit\_pts;\ \ \textcolor{comment}{//\ stats\ on\ points\ visited}}
+\DoxyCodeLine{00202\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_coord\_hts;\ \ \textcolor{comment}{//\ stats\ on\ coordinate\ hits}}
+\DoxyCodeLine{00203\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ \ \ ann\_float\_ops;\ \ \textcolor{comment}{//\ stats\ on\ floating\ ops}}
+\DoxyCodeLine{00204\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ \ The\ following\ need\ to\ be\ part\ of\ the\ public\ interface,\ because}}
+\DoxyCodeLine{00206\ \textcolor{comment}{//\ \ they\ are\ accessed\ outside\ the\ DLL\ in\ ann\_test.cpp.}}
+\DoxyCodeLine{00207\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00208\ DLL\_API\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ ann\_average\_err;\ \ \textcolor{comment}{//\ average\ error}}
+\DoxyCodeLine{00209\ DLL\_API\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_a_n_nsamp_stat}{ANNsampStat}}\ ann\_rank\_err;\ \textcolor{comment}{//\ rank\ error}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00212\ \textcolor{comment}{//\ \ Declaration\ of\ externally\ accessible\ routines\ for\ statistics}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ DLL\_API\ \textcolor{keywordtype}{void}\ annResetStats(\textcolor{keywordtype}{int}\ data\_size);\ \ \textcolor{comment}{//\ reset\ stats\ for\ a\ set\ of\ queries}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ DLL\_API\ \textcolor{keywordtype}{void}\ annResetCounts();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ counts\ for\ one\ queries}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ DLL\_API\ \textcolor{keywordtype}{void}\ annUpdateStats();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ stats\ with\ current\ counts}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ DLL\_API\ \textcolor{keywordtype}{void}\ annPrintStats(ANNbool\ validate);\ \textcolor{comment}{//\ print\ statistics\ for\ a\ run}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

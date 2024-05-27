@@ -1,0 +1,138 @@
+\doxysection{ANNkd\+\_\+tree Class Reference}
+\hypertarget{class_a_n_nkd__tree}{}\label{class_a_n_nkd__tree}\index{ANNkd\_tree@{ANNkd\_tree}}
+Inheritance diagram for ANNkd\+\_\+tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_a_n_nkd__tree}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a554ac3f6c790dfa2268008580bcb9734}\label{class_a_n_nkd__tree_a554ac3f6c790dfa2268008580bcb9734} 
+{\bfseries ANNkd\+\_\+tree} (int n=0, int dd=0, int bs=1)
+\item 
+\Hypertarget{class_a_n_nkd__tree_aee9529e128732f61702c5b22f8090a9a}\label{class_a_n_nkd__tree_aee9529e128732f61702c5b22f8090a9a} 
+{\bfseries ANNkd\+\_\+tree} (ANNpoint\+Array pa, int n, int dd, int bs=1, ANNsplit\+Rule split=ANN\+\_\+\+KD\+\_\+\+SUGGEST)
+\item 
+\Hypertarget{class_a_n_nkd__tree_a132d8b31ff7b223555d54a2db28d8861}\label{class_a_n_nkd__tree_a132d8b31ff7b223555d54a2db28d8861} 
+{\bfseries ANNkd\+\_\+tree} (std\+::istream \&in)
+\item 
+void \mbox{\hyperlink{class_a_n_nkd__tree_a2a0fa2889c23a34773dc054c7769b3c6}{annk\+Search}} (ANNpoint q, int k, ANNidx\+Array nn\+\_\+idx, ANNdist\+Array dd, double eps=0.\+0)
+\item 
+\Hypertarget{class_a_n_nkd__tree_a5a30304ca338faa9e6c61b10dd7ee940}\label{class_a_n_nkd__tree_a5a30304ca338faa9e6c61b10dd7ee940} 
+void {\bfseries annk\+Pri\+Search} (ANNpoint q, int k, ANNidx\+Array nn\+\_\+idx, ANNdist\+Array dd, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a9f98ea5b23ad8957fbea661014d25889}{annk\+FRSearch}} (ANNpoint q, ANNdist sq\+Rad, int k, ANNidx\+Array nn\+\_\+idx=NULL, ANNdist\+Array dd=NULL, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a200c6e8c2d9ea1d9afbdec893c41edb2}{the\+Dim}} ()
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a7acce8e5f6bbbe1e3c9e7f503e70d19d}{n\+Points}} ()
+\item 
+ANNpoint\+Array \mbox{\hyperlink{class_a_n_nkd__tree_a927be6420bd73db85ad8e356b462ec1b}{the\+Points}} ()
+\item 
+\Hypertarget{class_a_n_nkd__tree_a1e56bec899aabf89e689be0efb919792}\label{class_a_n_nkd__tree_a1e56bec899aabf89e689be0efb919792} 
+virtual void {\bfseries Print} (ANNbool with\+\_\+pts, std\+::ostream \&out)
+\item 
+\Hypertarget{class_a_n_nkd__tree_a25679827d1b863997fd3d8054116d2de}\label{class_a_n_nkd__tree_a25679827d1b863997fd3d8054116d2de} 
+virtual void {\bfseries Dump} (ANNbool with\+\_\+pts, std\+::ostream \&out)
+\item 
+\Hypertarget{class_a_n_nkd__tree_ab77cd72cc0f98d3ba5b2c546e3bfc460}\label{class_a_n_nkd__tree_ab77cd72cc0f98d3ba5b2c546e3bfc460} 
+virtual void {\bfseries get\+Stats} (\mbox{\hyperlink{class_a_n_nkd_stats}{ANNkd\+Stats}} \&st)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_n_nkd__tree_af531a6a84d19b64a74fabb718e9c12f0}\label{class_a_n_nkd__tree_af531a6a84d19b64a74fabb718e9c12f0} 
+void {\bfseries Skeleton\+Tree} (int n, int dd, int bs, ANNpoint\+Array pa=NULL, ANNidx\+Array pi=NULL)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a75bce877c86884daa690d4a508816391}\label{class_a_n_nkd__tree_a75bce877c86884daa690d4a508816391} 
+int {\bfseries dim}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a5e2b9b8c72550fee6f0b83b2497aff78}\label{class_a_n_nkd__tree_a5e2b9b8c72550fee6f0b83b2497aff78} 
+int {\bfseries n\+\_\+pts}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a4195961b40483502523de0147085061a}\label{class_a_n_nkd__tree_a4195961b40483502523de0147085061a} 
+int {\bfseries bkt\+\_\+size}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a1cfebcb6bc0c5799ca63742be94252e3}\label{class_a_n_nkd__tree_a1cfebcb6bc0c5799ca63742be94252e3} 
+ANNpoint\+Array {\bfseries pts}
+\item 
+\Hypertarget{class_a_n_nkd__tree_ab6e9412675e56af6e6cebcc012dadd00}\label{class_a_n_nkd__tree_ab6e9412675e56af6e6cebcc012dadd00} 
+ANNidx\+Array {\bfseries pidx}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a260fdbf0352880655eba84b271d30351}\label{class_a_n_nkd__tree_a260fdbf0352880655eba84b271d30351} 
+\mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\+\_\+ptr}} {\bfseries root}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a67b75c59ccbeba75df32e3d1ea6575ea}\label{class_a_n_nkd__tree_a67b75c59ccbeba75df32e3d1ea6575ea} 
+ANNpoint {\bfseries bnd\+\_\+box\+\_\+lo}
+\item 
+\Hypertarget{class_a_n_nkd__tree_a58438fdbae2c04ee3bcd6ec507fb59d9}\label{class_a_n_nkd__tree_a58438fdbae2c04ee3bcd6ec507fb59d9} 
+ANNpoint {\bfseries bnd\+\_\+box\+\_\+hi}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_a_n_nkd__tree_a9f98ea5b23ad8957fbea661014d25889}\label{class_a_n_nkd__tree_a9f98ea5b23ad8957fbea661014d25889} 
+\index{ANNkd\_tree@{ANNkd\_tree}!annkFRSearch@{annkFRSearch}}
+\index{annkFRSearch@{annkFRSearch}!ANNkd\_tree@{ANNkd\_tree}}
+\doxysubsubsection{\texorpdfstring{annkFRSearch()}{annkFRSearch()}}
+{\footnotesize\ttfamily int ANNkd\+\_\+tree\+::annk\+FRSearch (\begin{DoxyParamCaption}\item[{ANNpoint}]{q,  }\item[{ANNdist}]{sq\+Rad,  }\item[{int}]{k,  }\item[{ANNidx\+Array}]{nn\+\_\+idx = {\ttfamily NULL},  }\item[{ANNdist\+Array}]{dd = {\ttfamily NULL},  }\item[{double}]{eps = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nkd__tree_a2a0fa2889c23a34773dc054c7769b3c6}\label{class_a_n_nkd__tree_a2a0fa2889c23a34773dc054c7769b3c6} 
+\index{ANNkd\_tree@{ANNkd\_tree}!annkSearch@{annkSearch}}
+\index{annkSearch@{annkSearch}!ANNkd\_tree@{ANNkd\_tree}}
+\doxysubsubsection{\texorpdfstring{annkSearch()}{annkSearch()}}
+{\footnotesize\ttfamily void ANNkd\+\_\+tree\+::annk\+Search (\begin{DoxyParamCaption}\item[{ANNpoint}]{q,  }\item[{int}]{k,  }\item[{ANNidx\+Array}]{nn\+\_\+idx,  }\item[{ANNdist\+Array}]{dd,  }\item[{double}]{eps = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nkd__tree_a7acce8e5f6bbbe1e3c9e7f503e70d19d}\label{class_a_n_nkd__tree_a7acce8e5f6bbbe1e3c9e7f503e70d19d} 
+\index{ANNkd\_tree@{ANNkd\_tree}!nPoints@{nPoints}}
+\index{nPoints@{nPoints}!ANNkd\_tree@{ANNkd\_tree}}
+\doxysubsubsection{\texorpdfstring{nPoints()}{nPoints()}}
+{\footnotesize\ttfamily int ANNkd\+\_\+tree\+::n\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nkd__tree_a200c6e8c2d9ea1d9afbdec893c41edb2}\label{class_a_n_nkd__tree_a200c6e8c2d9ea1d9afbdec893c41edb2} 
+\index{ANNkd\_tree@{ANNkd\_tree}!theDim@{theDim}}
+\index{theDim@{theDim}!ANNkd\_tree@{ANNkd\_tree}}
+\doxysubsubsection{\texorpdfstring{theDim()}{theDim()}}
+{\footnotesize\ttfamily int ANNkd\+\_\+tree\+::the\+Dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+\Hypertarget{class_a_n_nkd__tree_a927be6420bd73db85ad8e356b462ec1b}\label{class_a_n_nkd__tree_a927be6420bd73db85ad8e356b462ec1b} 
+\index{ANNkd\_tree@{ANNkd\_tree}!thePoints@{thePoints}}
+\index{thePoints@{thePoints}!ANNkd\_tree@{ANNkd\_tree}}
+\doxysubsubsection{\texorpdfstring{thePoints()}{thePoints()}}
+{\footnotesize\ttfamily ANNpoint\+Array ANNkd\+\_\+tree\+::the\+Points (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_a_n_npoint_set}{ANNpoint\+Set}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+ANN/ANN.\+h\item 
+ann\+\_\+src/kd\+\_\+dump.\+cpp\item 
+ann\+\_\+src/kd\+\_\+fix\+\_\+rad\+\_\+search.\+cpp\item 
+ann\+\_\+src/kd\+\_\+pr\+\_\+search.\+cpp\item 
+ann\+\_\+src/kd\+\_\+search.\+cpp\item 
+ann\+\_\+src/kd\+\_\+tree.\+cpp\end{DoxyCompactItemize}

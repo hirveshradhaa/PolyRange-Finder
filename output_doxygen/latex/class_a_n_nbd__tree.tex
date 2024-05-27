@@ -1,0 +1,78 @@
+\doxysection{ANNbd\+\_\+tree Class Reference}
+\hypertarget{class_a_n_nbd__tree}{}\label{class_a_n_nbd__tree}\index{ANNbd\_tree@{ANNbd\_tree}}
+Inheritance diagram for ANNbd\+\_\+tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_a_n_nbd__tree}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_a_n_nbd__tree_a6f947fa8ce26e0ccae9dd1b7651a5e1f}\label{class_a_n_nbd__tree_a6f947fa8ce26e0ccae9dd1b7651a5e1f} 
+{\bfseries ANNbd\+\_\+tree} (int n, int dd, int bs=1)
+\item 
+\Hypertarget{class_a_n_nbd__tree_affc85f82bf003672cb9b05176617fee8}\label{class_a_n_nbd__tree_affc85f82bf003672cb9b05176617fee8} 
+{\bfseries ANNbd\+\_\+tree} (ANNpoint\+Array pa, int n, int dd, int bs=1, ANNsplit\+Rule split=ANN\+\_\+\+KD\+\_\+\+SUGGEST, ANNshrink\+Rule shrink=ANN\+\_\+\+BD\+\_\+\+SUGGEST)
+\item 
+\Hypertarget{class_a_n_nbd__tree_a8c68b938a359d6c307284d7bcf7fe273}\label{class_a_n_nbd__tree_a8c68b938a359d6c307284d7bcf7fe273} 
+{\bfseries ANNbd\+\_\+tree} (std\+::istream \&in)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_a_n_nkd__tree}{ANNkd\+\_\+tree}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries ANNkd\+\_\+tree} (int n=0, int dd=0, int bs=1)
+\item 
+{\bfseries ANNkd\+\_\+tree} (ANNpoint\+Array pa, int n, int dd, int bs=1, ANNsplit\+Rule split=ANN\+\_\+\+KD\+\_\+\+SUGGEST)
+\item 
+{\bfseries ANNkd\+\_\+tree} (std\+::istream \&in)
+\item 
+void \mbox{\hyperlink{class_a_n_nkd__tree_a2a0fa2889c23a34773dc054c7769b3c6}{annk\+Search}} (ANNpoint q, int k, ANNidx\+Array nn\+\_\+idx, ANNdist\+Array dd, double eps=0.\+0)
+\item 
+void {\bfseries annk\+Pri\+Search} (ANNpoint q, int k, ANNidx\+Array nn\+\_\+idx, ANNdist\+Array dd, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a9f98ea5b23ad8957fbea661014d25889}{annk\+FRSearch}} (ANNpoint q, ANNdist sq\+Rad, int k, ANNidx\+Array nn\+\_\+idx=NULL, ANNdist\+Array dd=NULL, double eps=0.\+0)
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a200c6e8c2d9ea1d9afbdec893c41edb2}{the\+Dim}} ()
+\item 
+int \mbox{\hyperlink{class_a_n_nkd__tree_a7acce8e5f6bbbe1e3c9e7f503e70d19d}{n\+Points}} ()
+\item 
+ANNpoint\+Array \mbox{\hyperlink{class_a_n_nkd__tree_a927be6420bd73db85ad8e356b462ec1b}{the\+Points}} ()
+\item 
+virtual void {\bfseries Print} (ANNbool with\+\_\+pts, std\+::ostream \&out)
+\item 
+virtual void {\bfseries Dump} (ANNbool with\+\_\+pts, std\+::ostream \&out)
+\item 
+virtual void {\bfseries get\+Stats} (\mbox{\hyperlink{class_a_n_nkd_stats}{ANNkd\+Stats}} \&st)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_a_n_nkd__tree}{ANNkd\+\_\+tree}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Skeleton\+Tree} (int n, int dd, int bs, ANNpoint\+Array pa=NULL, ANNidx\+Array pi=NULL)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_a_n_nkd__tree}{ANNkd\+\_\+tree}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries dim}
+\item 
+int {\bfseries n\+\_\+pts}
+\item 
+int {\bfseries bkt\+\_\+size}
+\item 
+ANNpoint\+Array {\bfseries pts}
+\item 
+ANNidx\+Array {\bfseries pidx}
+\item 
+\mbox{\hyperlink{class_a_n_nkd__node}{ANNkd\+\_\+ptr}} {\bfseries root}
+\item 
+ANNpoint {\bfseries bnd\+\_\+box\+\_\+lo}
+\item 
+ANNpoint {\bfseries bnd\+\_\+box\+\_\+hi}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+ANN/ANN.\+h\item 
+ann\+\_\+src/bd\+\_\+tree.\+cpp\end{DoxyCompactItemize}
